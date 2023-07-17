@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{03377702-B43B-416E-8A39-9635EF426E6A}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.LearningMauiBankingApp PreferredExecutionTarget="MyAppleMacCatalystID" />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="LearningMauiBankingApp/Pages/HomePage.xaml">
+    <Files>
+      <File FileName="LearningMauiBankingApp/Pages/HomePage.xaml" Line="8" Column="39" />
+      <File FileName="LearningMauiBankingApp/Pages/HomePage.xaml.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LearningMauiBankingApp" expanded="True">
+            <Node name="LearningMauiBankingApp" expanded="True">
+              <Node name="Pages" expanded="True">
+                <Node name="HomePage.xaml" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>

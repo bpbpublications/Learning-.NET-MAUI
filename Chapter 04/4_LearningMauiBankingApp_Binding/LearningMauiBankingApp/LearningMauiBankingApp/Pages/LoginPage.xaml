@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:LearningMauiBankingApp.Models"
+             x:Class="LearningMauiBankingApp.Pages.LoginPage">
+    <Grid IgnoreSafeArea="True">
+        <Image Source="light_background.png" Aspect="AspectFill"/>
+
+        <VerticalStackLayout x:Name="ContentStackLayout"
+                             VerticalOptions="Center"
+                             Margin="50,0"
+                             x:DataType="models:LoginCredentials">
+            <Label HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="#000000"
+                   FontFamily="Poppins-Regular"
+                   FontSize="24">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Welcome&#10;"/>
+                        <Span Text="{Binding Path=Username}" FontFamily="Poppins-SemiBold"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            
+            <Entry Margin="0,40, 0, 10"
+                   BackgroundColor="#FFFFFF"
+                   PlaceholderColor="#8E8E93"
+                   TextColor="#000000"
+                   Placeholder="Username"
+                   FontFamily="Poppins-Regular"
+                   ReturnType="Next"
+                   Completed="OnClientIdEntryCompleted"
+                   ClearButtonVisibility="WhileEditing"
+                   IsSpellCheckEnabled="False"
+                   Keyboard="Plain"
+                   Text="{Binding Username, Mode=OneWayToSource}"/>
+
+            <Entry x:Name="PasswordEntry"
+                   BackgroundColor="#FFFFFF"
+                   PlaceholderColor="#8E8E93"
+                   TextColor="#000000"
+                   FontFamily="Poppins-Regular"
+                   Placeholder="Password"
+                   IsPassword="True"
+                   Text="{Binding Password, Mode=OneWayToSource}"/>
+
+            <Button Text="Login"
+                    Margin="0, 25, 0, 0"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#FFFFFF"
+                    HeightRequest="44"
+                    WidthRequest="107"
+                    CornerRadius="12"
+                    TextColor="#000000"
+                    FontFamily="Poppins-Regular"
+                    FontSize="16"
+                    Clicked="OnLoginButtonClicked"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

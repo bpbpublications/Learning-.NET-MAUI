@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.Pages.HomePage"
+             xmlns:models="clr-namespace:LearningMauiBankingApp.Models"
+             xmlns:converters="clr-namespace:LearningMauiBankingApp.Converters"
+             xmlns:viewModels="clr-namespace:LearningMauiBankingApp.ViewModels"
+             xmlns:const="clr-namespace:LearningMauiBankingApp.AppConstants"
+             x:DataType="viewModels:HomePageViewModel"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BankingServiceImageButtonStyle" TargetType="ImageButton">
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="HeightRequest" Value="44"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryBackgroundColor}, Dark={StaticResource DarkPrimaryBackgroundColor}}"/>
+                <Setter Property="Aspect" Value="AspectFit"/>
+            </Style>
+            <Style x:Key="BankingServiceButtonDescriptionStyle" TargetType="Label" BasedOn="{StaticResource SecondaryContentLabelStyle}">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid IgnoreSafeArea="True">
+        <Image Source="{AppThemeBinding Light={x:Static const:ImageId.LightBackground}, Dark={x:Static const:ImageId.DarkBackground}}"
+               Aspect="AspectFill"/>
+
+        <Grid x:Name="ValueableContentGrid" RowDefinitions="64, 0.47*, 0.53*, 94">
+            <!--Top bar placeholder-->
+            <Grid Grid.Row="0" BackgroundColor="Red"/>
+
+            <!--Bank Card Info-->
+            <ScrollView Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalScrollBarVisibility="Never"
+                        VerticalOptions="Center">
+                <HorizontalStackLayout x:Name="BankCardsStackLayout"
+                                       Padding="16,0"
+                                       Spacing="10"
+                                       BindableLayout.ItemsSource="{Binding BankCards}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:BankCard">
+                            <Grid WidthRequest="311" HeightRequest="214"
+                                  RowDefinitions="1*, 1*">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.SelectBankCardCommand, Source={x:Reference ValueableContentGrid}}"
+                                                          CommandParameter="{Binding CardNumber}"/>
+                                </Grid.GestureRecognizers>
+
+                                <Image Source="{Binding Balance, Converter={converters:AccountBalanceToCardBackgroundImage}}"
+                                       Aspect="AspectFit"
+                                       Grid.RowSpan="2"/>
+                                <VerticalStackLayout Grid.Row="0" Margin="16,16,16,0">
+                                    <Label Text="{Binding Alias}"
+                                           TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+                                           HorizontalOptions="Start"
+                                           FontSize="20"
+                                           FontFamily="Poppins-SemiBold"/>
+
+                                    <Label Text="{Binding CardNumber, StringFormat='{0:0000 0000 0000 0000}'}"
+                                           Margin="0,10"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource PrimaryContentLabelStyle}"/>
+
+                                    <Label Text="{Binding ExpirationDate, Converter={converters:DateOnlyToBankCardExpirationDate}}"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource PrimaryContentLabelStyle}"/>
+                                </VerticalStackLayout>
+
+                                <Label Grid.Row="1"
+                                       Margin="16,0,0,16"
+                                       VerticalOptions="End"
+                                       FontSize="32"
+                                       FontFamily="Poppins-Light"
+                                       TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+                                       FormattedText="{Binding Balance, Converter={converters:AccountBalanceToBankCardFormattedString}}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <!--Buttons Grid-->
+            <Grid Grid.Row="2"
+                  ColumnDefinitions="1*, 1*, 1*"
+                  RowDefinitions="1*, 1*, 1*"
+                  ColumnSpacing="10"
+                  RowSpacing="10"
+                  Margin="16,0">
+
+                <!--Transfer Button-->
+                <VerticalStackLayout Grid.Column="0" Grid.Row="0"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightTransferIcon}, Dark={x:Static const:ImageId.DarkTransferIcon}}"
+                                 Command="{Binding OpenTransferModalCommand}"/>
+                    <Label Text="Transfer"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+
+                <!--Exchange button-->
+                <VerticalStackLayout Grid.Column="1" Grid.Row="0"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightExchangeIcon}, Dark={x:Static const:ImageId.DarkExchangeIcon}}"/>
+                    <Label Text="Exchange"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+
+                <!--Payments button-->
+                <VerticalStackLayout Grid.Column="2" Grid.Row="0"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightPaymentsIcon}, Dark={x:Static const:ImageId.DarkPaymentsIcon}}"/>
+                    <Label Text="Payments"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+
+                <!--Credits button-->
+                <VerticalStackLayout Grid.Column="0" Grid.Row="1"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightCreditsIcon}, Dark={x:Static const:ImageId.DarkCreditsIcon}}"/>
+                    <Label Text="Credits"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+
+                <!--Deposits button-->
+                <VerticalStackLayout Grid.Column="1" Grid.Row="1"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightDepositsIcon}, Dark={x:Static const:ImageId.DarkDepositsIcon}}"/>
+                    <Label Text="Deposits"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+
+                <!--Cashback button-->
+                <VerticalStackLayout Grid.Column="2" Grid.Row="1"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightCashbackIcon}, Dark={x:Static const:ImageId.DarkCashbackIcon}}"/>
+                    <Label Text="Cashback"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+
+                <!--ATM button-->
+                <VerticalStackLayout Grid.Column="0" Grid.Row="2"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightAtmIcon}, Dark={x:Static const:ImageId.DarkAtmIcon}}"/>
+                    <Label Text="ATM"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+
+                <!--Security button-->
+                <VerticalStackLayout Grid.Column="1" Grid.Row="2"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightSecurityIcon}, Dark={x:Static const:ImageId.DarkSecurityIcon}}"/>
+                    <Label Text="Security"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+
+                <!--More button-->
+                <VerticalStackLayout Grid.Column="2" Grid.Row="2"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Style="{StaticResource BankingServiceImageButtonStyle}"
+                                 Source="{AppThemeBinding Light={x:Static const:ImageId.LightMoreIcon}, Dark={x:Static const:ImageId.DarkMoreIcon}}"/>
+                    <Label Text="More"
+                           Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!--Bottom bar placeholder-->
+            <Grid Grid.Row="3" BackgroundColor="Blue"/>
+        </Grid>
+    </Grid>
+</ContentPage>

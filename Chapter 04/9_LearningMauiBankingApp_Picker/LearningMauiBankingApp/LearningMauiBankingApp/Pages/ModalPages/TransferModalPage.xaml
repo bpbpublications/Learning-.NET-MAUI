@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:modalPages="clr-namespace:LearningMauiBankingApp.Pages.ModalPages"
+             x:Class="LearningMauiBankingApp.Pages.ModalPages.TransferModalPage">
+    <Grid IgnoreSafeArea="True">
+        <Grid RowDefinitions="59, *"
+              VerticalOptions="End"
+              HeightRequest="600">
+            <BoxView Grid.RowSpan="2"
+                     CornerRadius="30, 30, 0, 0"
+                     Color="#F5F5F5">
+                <BoxView.Shadow>
+                    <Shadow Brush="Black" Radius="10" Offset="0,-10" Opacity="0.15"/>
+                </BoxView.Shadow>
+            </BoxView>
+
+            <ImageButton Grid.Row="0" HeightRequest="44" WidthRequest="44"
+                         HorizontalOptions="End" VerticalOptions="End"
+                         Margin="0, 0, 15, 0"
+                         Padding="8"
+                         BackgroundColor="Transparent"
+                         Source="light_close_icon.png"
+                         Clicked="OnCloseButtonClicked"/>
+
+            <VerticalStackLayout Grid.Row="1"
+                                 x:Name="ContentLayout"
+                                 x:DataType="modalPages:TransferModalPage"
+                                 VerticalOptions="Start"
+                                 HorizontalOptions="Center"
+                                 Spacing="15">
+               <Label Text="Own Transfer"
+                      HorizontalOptions="Center"
+                      TextColor="#000000"
+                      FontFamily="Poppins-SemiBold"
+                      FontSize="24"/>
+                <HorizontalStackLayout Spacing="15">
+                    <Picker x:Name="FromPicker"
+                            WidthRequest="150"
+                            TextColor="#000000"
+                            Title="From card"
+                            FontFamily="Poppins-Regular"
+                            FontSize="16"
+                            ItemsSource="{Binding Cards}"
+                            ItemDisplayBinding="{Binding Alias}"/>
+                
+                    <Picker x:Name="ToPicker"
+                            WidthRequest="150"
+                            TextColor="#000000"
+                            Title="To card"
+                            FontFamily="Poppins-Regular"
+                            FontSize="16"
+                            ItemsSource="{Binding Cards}"
+                            ItemDisplayBinding="{Binding Alias}"/>
+                </HorizontalStackLayout>
+                <Entry x:Name="TransferValueEntry"
+                       BackgroundColor="#FFFFFF"
+                       PlaceholderColor="#8E8E93"
+                       TextColor="#000000"
+                       FontFamily="Poppins-Regular"
+                       Placeholder="$1000"
+                       Keyboard="Numeric"/>
+                <Button Text="Transfer"
+                        Margin="0, 25, 0, 0"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#FFFFFF"
+                        HeightRequest="44"
+                        WidthRequest="107"
+                        CornerRadius="12"
+                        TextColor="#000000"
+                        FontFamily="Poppins-Regular"
+                        FontSize="16"
+                        Clicked="OnTransferButtonClicked"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

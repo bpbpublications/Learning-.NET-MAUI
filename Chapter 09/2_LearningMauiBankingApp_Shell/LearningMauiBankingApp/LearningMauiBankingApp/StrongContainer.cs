@@ -1,0 +1,78 @@
+﻿using LearningMauiBankingApp.Interfaces;
+using LearningMauiBankingApp.Pages;
+using LearningMauiBankingApp.Pages.ModalPages;
+using LearningMauiBankingApp.Services;
+using LearningMauiBankingApp.ViewModels;
+using LearningMauiBankingApp.Themes;
+using StrongInject;
+
+namespace LearningMauiBankingApp
+{
+    [Register(typeof(LoginPage))]
+    [Register(typeof(LoginPageViewModel))]
+    [Register(typeof(HomePage))]
+    [Register(typeof(HomePageViewModel))]
+    [Register(typeof(TransferModalPage))]
+    [Register(typeof(TransferModalPageViewModel))]
+    [Register(typeof(ConfirmationModalPage))]
+    [Register(typeof(ConfirmationModalPageViewModel))]
+    [Register(typeof(SettingsPage))]
+    [Register(typeof(SettingsPageViewModel))]
+    [Register(typeof(ThemeManager), typeof(IThemeManager))]
+    [Register(typeof(DummyBankCardManager), Scope.SingleInstance, typeof(IBankCardManager))]
+    [Register(typeof(LocalStorage), Scope.SingleInstance, typeof(ILocalStorage))]
+    [Register(typeof(LocalizationManager), Scope.SingleInstance, typeof(ILocalizationManager))]
+    [Register(typeof(DefaultColorScheme))]
+    [Register(typeof(AlternativeColorScheme))]
+    [Register(typeof(ApplicationPreferences), typeof(IApplicationPreferences))]
+    [Register(typeof(StrongShellNavigation), typeof(IStrongShellNavigation))]
+
+    [Register(typeof(CustomPage1))]
+    [Register(typeof(CustomPage2))]
+    [Register(typeof(CustomPage3))]
+    public partial class StrongContainer :
+        IContainer<LoginPage>,
+        IContainer<LoginPageViewModel>,
+        IContainer<HomePage>,
+        IContainer<HomePageViewModel>,
+        IContainer<TransferModalPage>,
+        IContainer<TransferModalPageViewModel>,
+        IContainer<ConfirmationModalPage>,
+        IContainer<ConfirmationModalPageViewModel>,
+        IContainer<SettingsPage>,
+        IContainer<SettingsPageViewModel>,
+        IContainer<IBankCardManager>,
+        IContainer<ILocalStorage>,
+        IContainer<IThemeManager>,
+        IContainer<DefaultColorScheme>,
+        IContainer<AlternativeColorScheme>,
+        IContainer<ILocalizationManager>,
+        IContainer<IApplicationPreferences>,
+        IContainer<IStrongShellNavigation>,
+
+        IContainer<CustomPage1>,
+        IContainer<CustomPage2>,
+        IContainer<CustomPage3>
+    {
+        [Instance]
+        private readonly IServiceProvider _serviceProvider;
+
+        public static IServiceProvider ServiceProvider { get; private set;}
+
+        public StrongContainer(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+            ServiceProvider = _serviceProvider;
+        }
+
+        [Instance]
+        public static ITextToSpeech TextToSpeechInstance => TextToSpeech.Default;
+
+        [Instance]
+        public static IGyroscope GyroscopeInstance => Gyroscope.Default;
+
+        [Instance]
+        public static IPreferences PreferencesInstance => Preferences.Default;
+    }
+}
+

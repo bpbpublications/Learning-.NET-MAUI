@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:const="clr-namespace:LearningMauiBankingApp.AppConstants"
+             xmlns:viewModels="clr-namespace:LearningMauiBankingApp.ViewModels"
+             xmlns:localization="clr-namespace:LearningMauiBankingApp.Localization"
+             xmlns:triggers="clr-namespace:LearningMauiBankingApp.Triggers"
+             xmlns:behaviors="clr-namespace:LearningMauiBankingApp.Behaviors"
+             x:DataType="viewModels:LoginPageViewModel"
+             x:Class="LearningMauiBankingApp.Pages.LoginPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry" x:Key="UsernameEntryStyle">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Valid"/>
+                            <VisualState Name="Invalid">
+                                <VisualState.Setters>
+                                    <Setter TargetName="PasswordEntry"
+                                            Property="Entry.IsEnabled"
+                                            Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Entry" x:Key="PasswordEntryStyle">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal"/>
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity"
+                                            Value="0.3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style x:Key="LoginButtonStyle" TargetType="Button" BasedOn="{StaticResource RegularSmallButton}">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal"/>
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="0.3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid IgnoreSafeArea="True">
+        <Image Source="{AppThemeBinding Light={x:Static const:ImageId.LightBackground}, Dark={x:Static const:ImageId.DarkBackground}}" Aspect="AspectFill"/>
+
+        <VerticalStackLayout x:Name="ContentStackLayout"
+                             VerticalOptions="Center"
+                             Margin="50,0">
+            <Label HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+                   FontFamily="Poppins-Regular"
+                   FontSize="24">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static localization:Strings.LoginPage_Welcome}"/>
+                        <Span Text="&#10;"/>
+                        <Span Text="{Binding Text, Source={x:Reference UsernameEntry}}" FontFamily="Poppins-SemiBold"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Grid RowSpacing="10" ColumnSpacing="10">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="OrientationStates">
+                        <VisualState Name="Portrait">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="0"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Property="Margin" Value="0, 40, 0, 0"/>
+                                <Setter Property="RowDefinitions" Value="*,*"/>
+                                <Setter Property="ColumnDefinitions" Value="*"/>
+                                <Setter TargetName="PasswordEntry" Property="Grid.Row" Value="1"/>
+                                <Setter TargetName="PasswordEntry" Property="Grid.Column" Value="0"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState Name="Landscape">
+                            <VisualState.StateTriggers>
+                                <AdaptiveTrigger MinWindowWidth="800"/>
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Property="Margin" Value="100, 0"/>
+                                <Setter Property="RowDefinitions" Value="*"/>
+                                <Setter Property="ColumnDefinitions" Value="*,*"/>
+                                <Setter TargetName="PasswordEntry" Property="Grid.Row" Value="0"/>
+                                <Setter TargetName="PasswordEntry" Property="Grid.Column" Value="1"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Entry x:Name="UsernameEntry"
+                       Style="{StaticResource UsernameEntryStyle}"
+                       TextChanged="OnUsernameEntryTextChanged"
+                       Placeholder="{x:Static localization:Strings.LoginPage_UsernamePlaceholder}"
+                       ReturnType="Next"
+                       Completed="OnClientIdEntryCompleted"
+                       ClearButtonVisibility="WhileEditing"
+                       IsSpellCheckEnabled="False"
+                       Keyboard="Plain"
+                       Text="{Binding Username, Mode=TwoWay}"/>
+
+                <Entry x:Name="PasswordEntry"
+                       Style="{StaticResource PasswordEntryStyle}"
+                       Placeholder="{x:Static localization:Strings.LoginPage_PasswordPlaceholder}"
+                       IsPassword="True"
+                       Text="{Binding Password, Mode=OneWayToSource}">
+                    <Entry.Triggers>
+                        <EventTrigger Event="TextChanged">
+                            <triggers:PasswordValidationTriggerAction ElementToDisable="{x:Reference LoginButton}"/>
+                        </EventTrigger>
+                    </Entry.Triggers>
+                </Entry>
+            </Grid>
+
+            <Label Text="Magic hint"
+                   HorizontalOptions="Center"
+                   Margin="0,15,0,0"
+                   Opacity="0"
+                   TextColor="{StaticResource AccentColor}"
+                   Style="{StaticResource PrimaryContentLabelStyle}">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding IsFocused, Source={x:Reference PasswordEntry}}" Value="True">
+                        <DataTrigger.EnterActions>
+                            <triggers:FadeTriggerAction TargetOpacity="1"/>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <triggers:FadeTriggerAction TargetOpacity="0"/>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <Button x:Name="LoginButton"
+                    Text="{x:Static localization:Strings.LoginPage_LoginButton}"
+                    Margin="0, 25, 0, 0"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource LoginButtonStyle}"
+                    Command="{Binding LoginButtonCommand}"
+                    IsEnabled="False">
+                <Button.Behaviors>
+                    <behaviors:NoInternetDisableBehavior/>
+                </Button.Behaviors>
+            </Button>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

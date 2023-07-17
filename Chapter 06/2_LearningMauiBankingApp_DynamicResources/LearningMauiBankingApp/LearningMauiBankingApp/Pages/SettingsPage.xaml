@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.Pages.SettingsPage"
+             Style="{DynamicResource PageStyle}"
+             xmlns:viewModels="clr-namespace:LearningMauiBankingApp.ViewModels"
+             x:DataType="viewModels:SettingsPageViewModel"
+             NavigationPage.HasNavigationBar="False">
+    <VerticalStackLayout VerticalOptions="Start">
+        <Label Text="Settings"
+               Style="{StaticResource PrimaryHeaderLabelStyle}"
+               HorizontalOptions="Center" />
+
+        <Button Text="Switch theme"
+                Margin="20,20,20,0"
+                Style="{StaticResource RegularButton}"
+                Command="{Binding SwitchThemeCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

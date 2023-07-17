@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.Pages.ModalPages.TransferModalPage">
+    <Grid IgnoreSafeArea="True">
+        <Grid RowDefinitions="59, *"
+              VerticalOptions="End"
+              HeightRequest="600">
+            <BoxView Grid.RowSpan="2"
+                     CornerRadius="30, 30, 0, 0"
+                     Color="#FFFFFF">
+                <BoxView.Shadow>
+                    <Shadow Brush="Black" Radius="10" Offset="0,-10" Opacity="0.15"/>
+                </BoxView.Shadow>
+            </BoxView>
+
+            <ImageButton Grid.Row="0" HeightRequest="44" WidthRequest="44"
+                         HorizontalOptions="End" VerticalOptions="End"
+                         Margin="0, 0, 15, 0"
+                         Padding="8"
+                         BackgroundColor="Transparent"
+                         Source="light_close_icon.png"
+                         Clicked="OnCloseButtonClicked"/>
+        </Grid>
+    </Grid>
+</ContentPage>

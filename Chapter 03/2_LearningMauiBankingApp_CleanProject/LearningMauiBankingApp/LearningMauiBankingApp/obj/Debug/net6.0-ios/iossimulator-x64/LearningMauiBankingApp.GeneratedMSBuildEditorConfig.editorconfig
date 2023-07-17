@@ -1,0 +1,22 @@
+is_global = true
+build_property.TargetFramework = net6.0-ios
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = LearningMauiBankingApp
+build_property.ProjectDir = /Users/alekseistarkov/_Learning_MAUI/23Aug2022_Learning_MAUI_Repo/Chapter_3/2_LearningMauiBankingApp_CleanProject/LearningMauiBankingApp/LearningMauiBankingApp/
+
+[/Users/alekseistarkov/_Learning_MAUI/23Aug2022_Learning_MAUI_Repo/Chapter_3/2_LearningMauiBankingApp_CleanProject/LearningMauiBankingApp/LearningMauiBankingApp/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = LearningMauiBankingApp.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[/Users/alekseistarkov/_Learning_MAUI/23Aug2022_Learning_MAUI_Repo/Chapter_3/2_LearningMauiBankingApp_CleanProject/LearningMauiBankingApp/LearningMauiBankingApp/Pages/HomePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = LearningMauiBankingApp.Pages.HomePage.xaml
+build_metadata.AdditionalFiles.TargetPath = Pages/HomePage.xaml
+build_metadata.AdditionalFiles.RelativePath = Pages/HomePage.xaml

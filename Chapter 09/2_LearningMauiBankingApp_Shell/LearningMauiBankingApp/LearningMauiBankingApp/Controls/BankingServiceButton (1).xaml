@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.Controls.BankingServiceButton"
+             x:Name="Host">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BankingServiceImageButtonStyle" TargetType="ImageButton">
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="HeightRequest" Value="44"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryBackgroundColor}, Dark={StaticResource DarkPrimaryBackgroundColor}}"/>
+                <Setter Property="Aspect" Value="AspectFit"/>
+            </Style>
+            <Style x:Key="BankingServiceButtonDescriptionStyle" TargetType="Label" BasedOn="{StaticResource SecondaryContentLabelStyle}">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <VerticalStackLayout Spacing="10">
+        <ImageButton x:Name="InnerButton"
+                     Style="{StaticResource BankingServiceImageButtonStyle}"
+                     Command="{Binding Command, Source={x:Reference Host}}"/>
+        <Label x:Name="DescriptionLabel"
+               Style="{StaticResource BankingServiceButtonDescriptionStyle}"/>
+    </VerticalStackLayout>
+</ContentView>
+

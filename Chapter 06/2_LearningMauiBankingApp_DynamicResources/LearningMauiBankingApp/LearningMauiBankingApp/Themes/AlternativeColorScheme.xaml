@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.Themes.AlternativeColorScheme">
+    <Color x:Key="LightPrimaryTextColor">#000000</Color>
+    <Color x:Key="LightSecondaryTextColor">#67697C</Color>
+
+    <Color x:Key="LightPrimaryBackgroundColor">#FFF2D9</Color>
+    <Color x:Key="LightSecondaryBackgroundColor">#FFFFFF</Color>
+
+    <Color x:Key="DarkPrimaryTextColor">#F523FF</Color>
+    <Color x:Key="DarkSecondaryTextColor">#67697C</Color>
+
+    <Color x:Key="DarkPrimaryBackgroundColor">#0F132E</Color>
+    <Color x:Key="DarkSecondaryBackgroundColor">#361128</Color>
+
+    <Style x:Key="PageStyle" TargetType="Page">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryBackgroundColor}, Dark={StaticResource DarkSecondaryBackgroundColor}}"/>
+    </Style>
+</ResourceDictionary>

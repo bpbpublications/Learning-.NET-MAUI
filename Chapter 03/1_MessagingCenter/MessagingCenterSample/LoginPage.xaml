@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MessagingCenterSample.LoginPage"
+             Title="LoginPage">
+    <VerticalStackLayout VerticalOptions="Center">
+        <Entry x:Name="FirstNameEntry"
+               Placeholder="First name"
+               HorizontalOptions="Center"
+               WidthRequest="200"/>
+
+        <Entry x:Name="LastNameEntry"
+               Placeholder="Last name"
+               HorizontalOptions="Center"
+               WidthRequest="200"/>
+
+        <Button x:Name="LoginButton"
+                Margin="0,15,0,0"
+                Text="Login"
+                IsEnabled="False"
+                HorizontalOptions="Center"
+                Clicked="OnLoginButtonClicked">
+            <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding Text, Source={x:Reference FirstNameEntry}, Converter={toolkit:IsStringNotNullOrEmptyConverter}}" Value="True" />
+                        <BindingCondition Binding="{Binding Text, Source={x:Reference LastNameEntry}, Converter={toolkit:IsStringNotNullOrEmptyConverter}}" Value="True" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiTrigger>
+            </Button.Triggers>
+        </Button>
+    </VerticalStackLayout>
+</ContentPage>

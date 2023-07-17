@@ -1,0 +1,55 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="LightPrimaryTextColor">#000000</Color>
+            <Color x:Key="LightSecondaryTextColor">#8E8E93</Color>
+
+            <Color x:Key="LightPrimaryBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="LightSecondaryBackgroundColor">#F5F5F5</Color>
+
+            <Color x:Key="DarkPrimaryTextColor">#FFFFFF</Color>
+            <Color x:Key="DarkSecondaryTextColor">#8E8E93</Color>
+
+            <Color x:Key="DarkPrimaryBackgroundColor">#1C1C1E</Color>
+            <Color x:Key="DarkSecondaryBackgroundColor">#000000</Color>
+
+            <!--Styles-->
+            <Style x:Key="PrimaryContentLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="Poppins-Regular"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"/>
+            </Style>
+
+            <Style x:Key="SecondaryContentLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="Poppins-Regular"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}"/>
+            </Style>
+
+            <Style x:Key="RegularSmallButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryBackgroundColor}, Dark={StaticResource DarkPrimaryBackgroundColor}}"/>
+                <Setter Property="HeightRequest" Value="44"/>
+                <Setter Property="WidthRequest" Value="107"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"/>
+                <Setter Property="FontFamily" Value="Poppins-Regular"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+
+            <!--Implicit styles-->
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryBackgroundColor}, Dark={StaticResource DarkPrimaryBackgroundColor}}"/>
+                <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LightSecondaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"/>
+                <Setter Property="FontFamily" Value="Poppins-Regular"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryBackgroundColor}, Dark={StaticResource DarkPrimaryBackgroundColor}}"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryBackgroundColor}, Dark={StaticResource DarkPrimaryBackgroundColor}}"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+

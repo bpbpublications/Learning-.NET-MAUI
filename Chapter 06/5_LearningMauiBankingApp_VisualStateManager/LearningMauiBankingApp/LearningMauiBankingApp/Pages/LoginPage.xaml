@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:const="clr-namespace:LearningMauiBankingApp.AppConstants"
+             xmlns:viewModels="clr-namespace:LearningMauiBankingApp.ViewModels"
+             xmlns:localization="clr-namespace:LearningMauiBankingApp.Localization"
+             x:DataType="viewModels:LoginPageViewModel"
+             x:Class="LearningMauiBankingApp.Pages.LoginPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry" x:Key="UsernameEntryStyle">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="ValidityStates">
+                            <VisualState Name="Valid"/>
+                            <VisualState Name="Invalid">
+                                <VisualState.Setters>
+                                    <Setter TargetName="PasswordEntry"
+                                            Property="Entry.IsEnabled"
+                                            Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style TargetType="Entry" x:Key="PasswordEntryStyle">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal"/>
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity"
+                                            Value="0.3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Style x:Key="LoginButtonStyle" TargetType="Button" BasedOn="{StaticResource RegularSmallButton}">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal"/>
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="0.3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="0.9" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid IgnoreSafeArea="True">
+        <Image Source="{AppThemeBinding Light={x:Static const:ImageId.LightBackground}, Dark={x:Static const:ImageId.DarkBackground}}" Aspect="AspectFill"/>
+
+        <VerticalStackLayout x:Name="ContentStackLayout"
+                             VerticalOptions="Center"
+                             Margin="50,0">
+            <Label HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+                   FontFamily="Poppins-Regular"
+                   FontSize="24">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static localization:Strings.LoginPage_Welcome}"/>
+                        <Span Text="&#10;"/>
+                        <Span Text="{Binding Text, Source={x:Reference UsernameEntry}}" FontFamily="Poppins-SemiBold"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            
+            <Entry x:Name="UsernameEntry"
+                   Style="{StaticResource UsernameEntryStyle}"
+                   TextChanged="OnUsernameEntryTextChanged"
+                   Margin="0,40, 0, 10"
+                   Placeholder="{x:Static localization:Strings.LoginPage_UsernamePlaceholder}"
+                   ReturnType="Next"
+                   Completed="OnClientIdEntryCompleted"
+                   ClearButtonVisibility="WhileEditing"
+                   IsSpellCheckEnabled="False"
+                   Keyboard="Plain"
+                   Text="{Binding Username, Mode=OneWayToSource}"/>
+
+            <Entry x:Name="PasswordEntry"
+                   Style="{StaticResource PasswordEntryStyle}"
+                   Placeholder="{x:Static localization:Strings.LoginPage_PasswordPlaceholder}"
+                   IsPassword="True"
+                   Text="{Binding Password, Mode=OneWayToSource}"/>
+
+            <Button x:Name="LoginButton"
+                    Text="{x:Static localization:Strings.LoginPage_LoginButton}"
+                    Margin="0, 25, 0, 0"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource LoginButtonStyle}"
+                    Command="{Binding LoginButtonCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

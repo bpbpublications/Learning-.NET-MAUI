@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.Pages.HomePage"
+             xmlns:models="clr-namespace:LearningMauiBankingApp.Models"
+             xmlns:viewModels="clr-namespace:LearningMauiBankingApp.ViewModels"
+             xmlns:const="clr-namespace:LearningMauiBankingApp.AppConstants"
+             xmlns:localization="clr-namespace:LearningMauiBankingApp.Localization"
+             xmlns:controls="clr-namespace:LearningMauiBankingApp.Controls"
+             x:DataType="viewModels:HomePageViewModel"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SmallImageButtonStyle" TargetType="ImageButton">
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="HeightRequest" Value="44"/>
+                <Setter Property="HeightRequest" Value="48"/>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightPrimaryBackgroundColor}, Dark={StaticResource DarkPrimaryBackgroundColor}}"/>
+                <Setter Property="Aspect" Value="AspectFit"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid IgnoreSafeArea="True">
+        <Image Source="{AppThemeBinding Light={x:Static const:ImageId.LightBackground}, Dark={x:Static const:ImageId.DarkBackground}}"
+               Aspect="AspectFill"/>
+
+        <Grid x:Name="ValueableContentGrid" RowDefinitions="64, 0.47*, 0.53*, 94">
+            <!--Top bar-->
+            <ImageButton Grid.Row="0"
+                         Margin="0,0,16,0"
+                         Style="{StaticResource SmallImageButtonStyle}"
+                         HorizontalOptions="End"
+                         VerticalOptions="Center"
+                         Source="{AppThemeBinding Light={x:Static const:ImageId.LightSettingsIcon}, Dark={x:Static const:ImageId.DarkSettingsIcon}}"
+                         Command="{Binding OpenSettingsCommand}"/>
+
+            <!--Bank Card Info-->
+            <StackLayout Grid.Row="1" VerticalOptions="Center" Spacing="20">
+                <CarouselView ItemsSource="{Binding BankCards}"
+                              IndicatorView="Indicators"
+                              PeekAreaInsets="45,0"
+                              Loop="False">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="0"
+                                           SnapPointsType="MandatorySingle"
+                                           SnapPointsAlignment="Center"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.EmptyView>
+                        <ContentView>
+                            <Border StrokeShape="RoundRectangle 15,15,15,15"
+                                    BackgroundColor="DarkGrey"
+                                    Margin="40,0">
+                                <Label Style="{StaticResource PrimaryHeaderLabelStyle}"
+                                       Text="{x:Static localization:Strings.HomePage_CardsLoading}"
+                                       VerticalOptions="Center" HorizontalOptions="Center"/>
+                            </Border>
+                        </ContentView>
+                    </CarouselView.EmptyView>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate x:DataType="models:BankCard">
+                            <controls:BankCardTile>
+                                <controls:BankCardTile.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.SelectBankCardCommand, Source={x:Reference ValueableContentGrid}}"
+                                                          CommandParameter="{Binding CardNumber}"/>
+                                </controls:BankCardTile.GestureRecognizers>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CommonStates">
+                                        <VisualState Name="CurrentItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="IsSelected" Value="True" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState Name="PreviousItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="IsSelected" Value="False" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState Name="NextItem">
+                                            <VisualState.Setters>
+                                                <Setter Property="IsSelected" Value="False" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </controls:BankCardTile>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <IndicatorView x:Name="Indicators" 
+                               IndicatorSize="8"
+                               HorizontalOptions="Center"
+                               IndicatorColor="{AppThemeBinding Light={StaticResource LightPrimaryBackgroundColor}, Dark={StaticResource DarkPrimaryBackgroundColor}}"
+                               SelectedIndicatorColor="{DynamicResource AccentColor}"/>
+            </StackLayout>
+
+            <!--Buttons-->
+            <ScrollView Grid.Row="2">
+                <FlexLayout Wrap="Wrap"
+                            AlignItems="Start"
+                            JustifyContent="SpaceAround"
+                            AlignContent="Center">
+                    <FlexLayout.Resources>
+                        <Style TargetType="controls:BankingServiceButton">
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="WidthRequest" Value="100"/>
+                        </Style>
+                    </FlexLayout.Resources>
+
+                    <!--Transfer Button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_TransferButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightTransferIcon}, Dark={x:Static const:ImageId.DarkTransferIcon}}"
+                                                   Command="{Binding OpenTransferModalCommand}"/>
+                
+                    <!--Exchange button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_ExchangeButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightExchangeIcon}, Dark={x:Static const:ImageId.DarkExchangeIcon}}"/>
+                
+                    <!--Payments button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_PaymentsButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightPaymentsIcon}, Dark={x:Static const:ImageId.DarkPaymentsIcon}}"/>
+                
+                    <!--Credits button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_CreditsButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightCreditsIcon}, Dark={x:Static const:ImageId.DarkCreditsIcon}}"/>
+                
+                    <!--Deposits button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_DepositsButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightDepositsIcon}, Dark={x:Static const:ImageId.DarkDepositsIcon}}"/>
+                
+                    <!--Cashback button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_CashbackButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightCashbackIcon}, Dark={x:Static const:ImageId.DarkCashbackIcon}}"/>
+                
+                    <!--ATM button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_AtmButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightAtmIcon}, Dark={x:Static const:ImageId.DarkAtmIcon}}"/>
+                
+                    <!--Security button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_SecurityButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightSecurityIcon}, Dark={x:Static const:ImageId.DarkSecurityIcon}}"/>
+                
+                    <!--More button-->
+                    <controls:BankingServiceButton Text="{x:Static localization:Strings.HomePage_MoreButton}"
+                                                   Image="{AppThemeBinding Light={x:Static const:ImageId.LightMoreIcon}, Dark={x:Static const:ImageId.DarkMoreIcon}}"/>
+                </FlexLayout>
+            </ScrollView>
+            
+            <!--Bottom bar-->
+            <Border x:Name="BottomBar" Grid.Row="3" Margin="15,0, 15, 10" StrokeShape="RoundRectangle 30,30,30,30">
+                <Border.Background>
+                    <RadialGradientBrush x:Name="BottomBarBrush" Center="0.5,0.5" Radius="0.01">
+                        <GradientStop Offset="0" Color="{DynamicResource Accent1Color}" />
+                        <GradientStop Offset="1" Color="{DynamicResource AccentColor}" />
+                    </RadialGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="{OnPlatform Default='8,8', Android='20,20'}"
+                            Radius="{OnPlatform 6, Android=40}"
+                            Opacity="{OnPlatform 0.4, Android=0.5}" />
+                </Border.Shadow>
+                <Grid>
+                    <Label Style="{StaticResource PrimaryHeaderLabelStyle}"
+                           TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+                           Text=".NET MAUI"
+                           FontSize="30"
+                           TranslationY="{OnPlatform 0, Android=3}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

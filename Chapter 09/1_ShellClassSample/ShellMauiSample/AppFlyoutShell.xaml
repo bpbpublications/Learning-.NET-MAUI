@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="ShellMauiSample.AppFlyoutShell"
+       xmlns:local="clr-namespace:ShellMauiSample"
+       FlyoutBackdrop="#99000000"
+       Shell.TabBarIsVisible="False">
+    <MenuItem Text="ChujDupa"/>
+    <FlyoutItem Title="Furniture" Icon="furniture_icon" >
+        <Tab Route="Furniture" >
+            <ShellContent Title="Kitchen" Route="Kitchen" ContentTemplate="{DataTemplate local:KitchenPage}"/>
+            <ShellContent Title="Bedroom" Route="Bedroom" ContentTemplate="{DataTemplate local:BedroomPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <MenuItem Text="Chuj"/>
+    <FlyoutItem Title="Accessories" Icon="accessories_icon">
+        <Tab Route="AccessoriesTab">
+            <ShellContent Route="Accessories" ContentTemplate="{DataTemplate local:AccessoriesPage}"/>
+        </Tab>
+    </FlyoutItem>
+    <MenuItem Text="Dupa"/>
+</Shell>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       x:Class="LearningMauiBankingApp.MainShell"
+       xmlns:pages="clr-namespace:LearningMauiBankingApp.Pages"
+       xmlns:const="clr-namespace:LearningMauiBankingApp.AppConstants"
+       xmlns:localization="clr-namespace:LearningMauiBankingApp.Localization"
+       xmlns:controls="clr-namespace:LearningMauiBankingApp.Controls"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.TabBarIsVisible="True"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarBackgroundColor="{AppThemeBinding Light={StaticResource LightSecondaryBackgroundColor}, Dark={StaticResource DarkSecondaryBackgroundColor}}"
+       Shell.TabBarForegroundColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+       Shell.TabBarUnselectedColor="{AppThemeBinding Light={StaticResource LightSecondaryTextColor}, Dark={StaticResource DarkSecondaryTextColor}}">
+
+    <controls:StrongShellContent x:TypeArguments="pages:LoginPage" />
+
+    <TabBar>
+        <Tab Title="{x:Static localization:Strings.HomePage_Title}"
+             Icon="{AppThemeBinding Light={x:Static const:ImageId.LightHomeIcon}, Dark={x:Static const:ImageId.DarkHomeIcon}}">
+            <controls:StrongShellContent x:TypeArguments="pages:HomePage" />
+        </Tab>
+        <Tab Title="{x:Static localization:Strings.SettingsPage_Title}"
+             Icon="{AppThemeBinding Light={x:Static const:ImageId.LightSettingsIcon}, Dark={x:Static const:ImageId.DarkSettingsIcon}}">
+            <controls:StrongShellContent x:TypeArguments="pages:SettingsPage" />
+        </Tab>
+    </TabBar>
+</Shell>

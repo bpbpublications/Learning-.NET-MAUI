@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:const="clr-namespace:LearningMauiBankingApp.AppConstants"
+             xmlns:viewModels="clr-namespace:LearningMauiBankingApp.ViewModels"
+             xmlns:localization="clr-namespace:LearningMauiBankingApp.Localization"
+             x:DataType="viewModels:LoginPageViewModel"
+             x:Class="LearningMauiBankingApp.Pages.LoginPage"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid IgnoreSafeArea="True">
+        <Image Source="{AppThemeBinding Light={x:Static const:ImageId.LightBackground}, Dark={x:Static const:ImageId.DarkBackground}}" Aspect="AspectFill"/>
+
+        <VerticalStackLayout x:Name="ContentStackLayout"
+                             VerticalOptions="Center"
+                             Margin="50,0">
+            <Label HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+                   FontFamily="Poppins-Regular"
+                   FontSize="24">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static localization:Strings.LoginPage_Welcome}"/>
+                        <Span Text="&#10;"/>
+                        <Span Text="{Binding Text, Source={x:Reference UsernameEntry}}" FontFamily="Poppins-SemiBold"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            
+            <Entry x:Name="UsernameEntry"
+                   Margin="0,40, 0, 10"
+                   Placeholder="{x:Static localization:Strings.LoginPage_UsernamePlaceholder}"
+                   ReturnType="Next"
+                   Completed="OnClientIdEntryCompleted"
+                   ClearButtonVisibility="WhileEditing"
+                   IsSpellCheckEnabled="False"
+                   Keyboard="Plain"
+                   Text="{Binding Username, Mode=OneWayToSource}"/>
+
+            <Entry x:Name="PasswordEntry"
+                   Placeholder="{x:Static localization:Strings.LoginPage_PasswordPlaceholder}"
+                   IsPassword="True"
+                   Text="{Binding Password, Mode=OneWayToSource}"/>
+
+            <Button Text="{x:Static localization:Strings.LoginPage_LoginButton}"
+                    Margin="0, 25, 0, 0"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource RegularSmallButton}"
+                    Command="{Binding LoginButtonCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

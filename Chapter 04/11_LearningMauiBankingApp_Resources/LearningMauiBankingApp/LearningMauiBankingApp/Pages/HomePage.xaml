@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.Pages.HomePage"
+             xmlns:pages="clr-namespace:LearningMauiBankingApp.Pages"
+             xmlns:models="clr-namespace:LearningMauiBankingApp.Models"
+             xmlns:converters="clr-namespace:LearningMauiBankingApp.Converters"
+             NavigationPage.HasNavigationBar="False">
+    <Grid IgnoreSafeArea="True">
+        <Image Source="light_background.png"
+               Aspect="AspectFill"/>
+
+        <Grid x:Name="ValueableContentGrid" RowDefinitions="64, 0.47*, 0.53*, 94">
+            <!--Top bar placeholder-->
+            <Grid Grid.Row="0" BackgroundColor="Red"/>
+
+            <!--Bank Card Info-->
+            <ScrollView Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalScrollBarVisibility="Never"
+                        VerticalOptions="Center">
+                <HorizontalStackLayout x:Name="BankCardsStackLayout"
+                                       Padding="16,0"
+                                       Spacing="10"
+                                       x:DataType="pages:HomePage"
+                                       BindableLayout.ItemsSource="{Binding BankCards}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:BankCard">
+                            <Grid WidthRequest="311" HeightRequest="214"
+                                  RowDefinitions="1*, 1*">
+                                <Image Source="{Binding Balance, Converter={converters:AccountBalanceToCardBackgroundImage}}"
+                                       Aspect="AspectFit"
+                                       Grid.RowSpan="2"/>
+                                <VerticalStackLayout Grid.Row="0" Margin="16,16,16,0">
+                                    <Label Text="{Binding Alias}"
+                                           TextColor="{StaticResource LightPrimaryTextColor}"
+                                           HorizontalOptions="Start"
+                                           FontSize="20"
+                                           FontFamily="Poppins-SemiBold"/>
+
+                                    <Label Text="{Binding CardNumber, StringFormat='{0:0000 0000 0000 0000}'}"
+                                           TextColor="{StaticResource LightPrimaryTextColor}"
+                                           Margin="0,10"
+                                           HorizontalOptions="Start"
+                                           FontSize="16"
+                                           FontFamily="Poppins-Regular"/>
+
+                                    <Label Text="{Binding ExpirationDate, Converter={converters:DateOnlyToBankCardExpirationDate}}"
+                                           HorizontalOptions="Start"
+                                           FontSize="16"
+                                           FontFamily="Poppins-Regular"
+                                           TextColor="{StaticResource LightPrimaryTextColor}"/>
+                                </VerticalStackLayout>
+
+                                <Label Grid.Row="1"
+                                       Margin="16,0,0,16"
+                                       VerticalOptions="End"
+                                       FontSize="32"
+                                       FontFamily="Poppins-Light"
+                                       TextColor="{StaticResource LightPrimaryTextColor}"
+                                       FormattedText="{Binding Balance, Converter={converters:AccountBalanceToBankCardFormattedString}}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </HorizontalStackLayout>
+            </ScrollView>
+
+            <!--Buttons Grid-->
+            <Grid Grid.Row="2"
+                  ColumnDefinitions="1*, 1*, 1*"
+                  RowDefinitions="1*, 1*, 1*"
+                  ColumnSpacing="10"
+                  RowSpacing="10"
+                  Margin="16,0">
+
+                <!--Transfer Button-->
+                <VerticalStackLayout Grid.Column="0" Grid.Row="0"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_transfer_icon.png"
+                                 Aspect="AspectFit"
+                                 Clicked="OnTransferButtonClicked"/>
+                    <Label HorizontalOptions="Center"
+                           Text="Transfer"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+
+                <!--Exchange button-->
+                <VerticalStackLayout Grid.Column="1" Grid.Row="0"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_exchange_icon.png"
+                                 Aspect="AspectFit"/>
+                    <Label HorizontalOptions="Center"
+                           Text="Exchange"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+
+                <!--Payments button-->
+                <VerticalStackLayout Grid.Column="2" Grid.Row="0"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_payments_icon.png"
+                                 Aspect="AspectFit"/>
+                    <Label HorizontalOptions="Center"
+                           Text="Payments"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+
+                <!--Credits button-->
+                <VerticalStackLayout Grid.Column="0" Grid.Row="1"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_credits_icon.png"
+                                 Aspect="AspectFit"/>
+                    <Label HorizontalOptions="Center"
+                           Text="Credits"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+
+                <!--Deposits button-->
+                <VerticalStackLayout Grid.Column="1" Grid.Row="1"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_deposits_icon.png"
+                                 Aspect="AspectFit"/>
+                    <Label HorizontalOptions="Center"
+                           Text="Deposits"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+
+                <!--Cashback button-->
+                <VerticalStackLayout Grid.Column="2" Grid.Row="1"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_cashback_icon.png"
+                                 Aspect="AspectFit"/>
+                    <Label HorizontalOptions="Center"
+                           Text="Cashback"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+
+                <!--ATM button-->
+                <VerticalStackLayout Grid.Column="0" Grid.Row="2"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_atm_icon.png"
+                                 Aspect="AspectFit"/>
+                    <Label HorizontalOptions="Center"
+                           Text="ATM"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+
+                <!--Security button-->
+                <VerticalStackLayout Grid.Column="1" Grid.Row="2"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_security_icon.png"
+                                 Aspect="AspectFit"/>
+                    <Label HorizontalOptions="Center"
+                           Text="Security"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+
+                <!--More button-->
+                <VerticalStackLayout Grid.Column="2" Grid.Row="2"
+                                     Spacing="10"
+                                     VerticalOptions="Center">
+                    <ImageButton Padding="10"
+                                 HeightRequest="44"
+                                 CornerRadius="12"
+                                 BackgroundColor="{StaticResource LightPrimaryBackgroundColor}"
+                                 Source="light_more_icon.png"
+                                 Aspect="AspectFit"/>
+                    <Label HorizontalOptions="Center"
+                           Text="More"
+                           TextColor="{StaticResource LightSecondaryTextColor}"
+                           FontSize="16"
+                           FontFamily="Poppins-Regular"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!--Bottom bar placeholder-->
+            <Grid Grid.Row="3" BackgroundColor="Blue"/>
+        </Grid>
+    </Grid>
+</ContentPage>

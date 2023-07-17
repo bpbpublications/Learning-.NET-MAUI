@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:const="clr-namespace:LearningMauiBankingApp.AppConstants"
+                       xmlns:localization="clr-namespace:LearningMauiBankingApp.Localization"
+                       xmlns:pages="clr-namespace:LearningMauiBankingApp.Pages"
+                       x:Class="LearningMauiBankingApp.Pages.ModalPages.TransferModalPage"
+                       xmlns:viewModels="clr-namespace:LearningMauiBankingApp.ViewModels"
+                       xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+                       Shell.PresentationMode="ModalAnimated"
+                       x:DataType="viewModels:TransferModalPageViewModel">
+
+    <pages:ContentPageBase.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CustomPickerStyle" TargetType="Picker" BasedOn="{StaticResource PickerStyle}">
+                <Setter Property="WidthRequest" Value="150"/>
+            </Style>
+            <Style x:Key="InvalidValueTransferEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="{DynamicResource Accent1Color}"/>
+            </Style>
+        </ResourceDictionary>
+    </pages:ContentPageBase.Resources>
+
+    <Grid IgnoreSafeArea="True">
+        <Grid RowDefinitions="59, *"
+              VerticalOptions="End"
+              HeightRequest="600">
+            <BoxView Grid.RowSpan="2"
+                     CornerRadius="30, 30, 0, 0"
+                     Color="{AppThemeBinding Light={StaticResource LightSecondaryBackgroundColor}, Dark={StaticResource DarkSecondaryBackgroundColor}}">
+                <BoxView.Shadow>
+                    <Shadow Brush="Black" Radius="10" Offset="0,-10" Opacity="0.15"/>
+                </BoxView.Shadow>
+            </BoxView>
+
+            <ImageButton Grid.Row="0" HeightRequest="44" WidthRequest="44"
+                         HorizontalOptions="End" VerticalOptions="End"
+                         Margin="0, 0, 15, 0"
+                         Padding="8"
+                         BackgroundColor="Transparent"
+                         Source="{AppThemeBinding Light={x:Static const:ImageId.LightCloseIcon}, Dark={x:Static const:ImageId.DarkCloseIcon}}"
+                         Command="{Binding CloseCommand}"/>
+
+            <VerticalStackLayout Grid.Row="1"
+                                 VerticalOptions="Start"
+                                 HorizontalOptions="Center"
+                                 Spacing="15">
+               <Label Text="{x:Static localization:Strings.TransferPage_Title}"
+                      HorizontalOptions="Center"
+                      TextColor="{AppThemeBinding Light={StaticResource LightPrimaryTextColor}, Dark={StaticResource DarkPrimaryTextColor}}"
+                      FontFamily="Poppins-SemiBold"
+                      FontSize="24"/>
+                <HorizontalStackLayout Spacing="15">
+                    <Picker Style="{StaticResource CustomPickerStyle}"
+                            Title="{x:Static localization:Strings.TransferPage_FromCardPicker}"
+                            ItemsSource="{Binding Cards}"
+                            ItemDisplayBinding="{Binding Alias}"
+                            SelectedItem="{Binding SelectedFromCard, Mode=TwoWay}"/>
+                
+                    <Picker Style="{StaticResource CustomPickerStyle}"
+                            Title="{x:Static localization:Strings.TransferPage_ToCardPicker}"
+                            ItemsSource="{Binding Cards}"
+                            ItemDisplayBinding="{Binding Alias}"
+                            SelectedItem="{Binding SelectedToCard, Mode=OneWayToSource}"/>
+                </HorizontalStackLayout>
+                <Entry x:Name="TransferValueEntry"
+                       Placeholder="$1000"
+                       Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <mct:NumericValidationBehavior MinimumDecimalPlaces="0"
+                                                       MaximumDecimalPlaces="2"
+                                                       MinimumValue="0"
+                                                       Flags="ValidateOnValueChanged"
+                                                       MaximumValue="{Binding SelectedFromCard.Balance}"
+                                                       InvalidStyle="{StaticResource InvalidValueTransferEntryStyle}"/>
+
+                    </Entry.Behaviors>
+                </Entry>
+                <Button Text="{x:Static localization:Strings.TransferPage_TransferButton}"
+                        Margin="0, 25, 0, 0"
+                        Style="{StaticResource RegularSmallButton}"
+                        HorizontalOptions="Center"
+                        Command="{Binding TransferCommand}"
+                        CommandParameter="{Binding Text, Source={x:Reference TransferValueEntry}}"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</pages:ContentPageBase>

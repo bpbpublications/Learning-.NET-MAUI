@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LearningMauiBankingApp.Pages.SettingsPage"
+             xmlns:markups="clr-namespace:LearningMauiBankingApp.MarkupExtensions"
+             Style="{DynamicResource PageStyle}"
+             xmlns:viewModels="clr-namespace:LearningMauiBankingApp.ViewModels"
+             x:DataType="viewModels:SettingsPageViewModel"
+             NavigationPage.HasNavigationBar="False">
+    <VerticalStackLayout VerticalOptions="Start">
+        <Label Text="{markups:LocalizationBinding SettingsPage_Title}"
+               Style="{StaticResource PrimaryHeaderLabelStyle}"
+               HorizontalOptions="Center" />
+
+        <Button Text="{markups:LocalizationBinding SettingsPage_SwitchThemeButton}"
+                Margin="20,20,20,0"
+                Style="{StaticResource RegularButton}"
+                Command="{Binding SwitchThemeCommand}"/>
+
+        <Button Text="{markups:LocalizationBinding SettingsPage_SwitchToEnglishButton}"
+                Margin="20,10,20,0"
+                Style="{StaticResource RegularButton}"
+                Command="{Binding SwitchToEnglishCommand}"/>
+
+        <Button Text="{markups:LocalizationBinding SettingsPage_SwitchToPolishButton}"
+                Margin="20,10,20,0"
+                Style="{StaticResource RegularButton}"
+                Command="{Binding SwitchToPolishCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

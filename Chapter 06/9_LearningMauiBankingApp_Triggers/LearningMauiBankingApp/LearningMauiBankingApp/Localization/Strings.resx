@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="LoginPage_PasswordPlaceholder" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="SettingsPage_Title" xml:space="preserve">
+        <value>Settings</value>
+    </data>
+    <data name="LoginPage_UsernamePlaceholder" xml:space="preserve">
+        <value>Username</value>
+    </data>
+    <data name="LoginPage_Welcome" xml:space="preserve">
+        <value>Welcome</value>
+    </data>
+    <data name="LoginPage_LoginButton" xml:space="preserve">
+        <value>Login</value>
+    </data>
+    <data name="HomePage_TransferButton" xml:space="preserve">
+        <value>Transfer</value>
+    </data>
+    <data name="HomePage_ExchangeButton" xml:space="preserve">
+        <value>Excange</value>
+    </data>
+    <data name="HomePage_PaymentsButton" xml:space="preserve">
+        <value>Payment</value>
+    </data>
+    <data name="HomePage_CreditsButton" xml:space="preserve">
+        <value>Credits</value>
+    </data>
+    <data name="HomePage_DepositsButton" xml:space="preserve">
+        <value>Deposits</value>
+    </data>
+    <data name="HomePage_AtmButton" xml:space="preserve">
+        <value>ATM</value>
+    </data>
+    <data name="HomePage_SecurityButton" xml:space="preserve">
+        <value>Security</value>
+    </data>
+    <data name="HomePage_MoreButton" xml:space="preserve">
+        <value>More</value>
+    </data>
+    <data name="HomePage_CashbackButton" xml:space="preserve">
+        <value>Cashback</value>
+    </data>
+    <data name="HomePage_CardsLoading" xml:space="preserve">
+        <value>Loading...</value>
+    </data>
+    <data name="SettingsPage_SwitchThemeButton" xml:space="preserve">
+        <value>Switch Theme</value>
+    </data>
+    <data name="SettingsPage_SwitchToEnglishButton" xml:space="preserve">
+        <value>Switch to English</value>
+    </data>
+    <data name="SettingsPage_SwitchToPolishButton" xml:space="preserve">
+        <value>Switch to Polish</value>
+    </data>
+    <data name="TransferPage_Title" xml:space="preserve">
+        <value>Own transfer</value>
+    </data>
+    <data name="TransferPage_FromCardPicker" xml:space="preserve">
+        <value>From Card</value>
+    </data>
+    <data name="TransferPage_ToCardPicker" xml:space="preserve">
+        <value>To Card</value>
+    </data>
+    <data name="TransferPage_TransferButton" xml:space="preserve">
+        <value>Transfer</value>
+    </data>
+</root>
